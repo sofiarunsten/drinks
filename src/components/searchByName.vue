@@ -4,12 +4,14 @@
       <input type="text" placeholder="Search for drinks" v-model="search" />
     </div>
 
-    <div class="one-drink" v-for="drink in drinks">
-      <h3> {{ drink.strDrink }}</h3>
-      <div class="drink-img">
-        <img v-bind:src="drink.strDrinkThumb">
-      </div>
-    </div>
+
+        <div class="one-drink" v-for="drink in drinks">
+          <router-link v-bind:to='"/drink/" + drink.idDrink'><h3> {{ drink.strDrink }}</h3></router-link>
+          <div class="drink-img">
+            <img v-bind:src="drink.strDrinkThumb">
+          </div>
+        </div>
+
 
   </div>
 
@@ -24,7 +26,6 @@ export default {
     }
   },
   methods: {
-
   },
   updated() { //before update för att den alltid ska söka på nytt när man skriver något i sökrutan
     this.$http.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + this.search).then(function(data) {
@@ -71,6 +72,11 @@ export default {
   .one-drink {
     padding: 10px;
     color: #fff;
+
+    a {
+      text-decoration: none;
+    }
+
     h3 {
       color: #fff;
       font-family: 'Montserrat';
