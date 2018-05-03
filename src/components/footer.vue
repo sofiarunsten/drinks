@@ -1,6 +1,5 @@
 <template lang="html">
   <div>
-
   </div>
 </template>
 
@@ -9,5 +8,10 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="scss">
+$green: #a0ef92;
+
+
+div {
+}
 </style>

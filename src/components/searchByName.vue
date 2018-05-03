@@ -42,30 +42,48 @@ export default {
 
 <style lang="scss">
   $orange: #f2b765;
+  $light-orange: #f9cc8e;
   $pink: #ff91b9;
   $blue: #97ecef;
   $green: #a0ef92;
+  $details: #fff;
+
+* {
+  box-sizing: border-box;
+}
 
   #sbn {
 
-  }
-
   .input-div {
-    width: calc(100% - 45px); //***************ÄNDRA DETTA!
+    background-color: $orange;
+    padding-top: 10px;
+    width: 100%; //***************ÄNDRA DETTA!
+
+    ::placeholder {
+      color: $details;
+      opacity: 0.5;
+    }
 
     input {
-      width: 100%;
+      background-color: $light-orange;
+      width: 250px;
       margin-left: 10px;
       padding: 10px;
       text-transform: uppercase;
-      border: 2px solid $blue;
+      border: 2px solid $details;
       margin-bottom:10px;
+      color: $details;
     }
 
     input:focus {
       outline: none;
-      background-color: #f4ffff;
-      color: white;
+      background-color: $details;
+      border: 2px solid $light-orange;
+      color: $orange;
+
+      ::placeholder {
+        color: $orange;
+      }
     }
 
   }
@@ -127,5 +145,6 @@ export default {
   .one-drink:nth-child(4n+1) {
     background-color: $green;
   }
+}
 
 </style>

@@ -68,7 +68,7 @@ $green: #a0ef92;
   input:focus {
     outline: none;
     background-color: #f4ffff;
-    color: white;
+    color: $pink;
   }
 
 }
