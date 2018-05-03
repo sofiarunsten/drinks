@@ -6,10 +6,14 @@
 
 
         <div class="one-drink" v-for="drink in drinks">
-          <router-link v-bind:to='"/drink/" + drink.idDrink'><h3> {{ drink.strDrink }}</h3></router-link>
-          <div class="drink-img">
-            <img v-bind:src="drink.strDrinkThumb">
-          </div>
+          <router-link v-bind:to='"/drink/" + drink.idDrink'>
+            <h3> {{ drink.strDrink }} </h3>
+            <!-- Länken till drinksidan måste läggas in på alla komponenter som ska ha den -->
+            <div class="drink-img">
+              <img v-bind:src="drink.strDrinkThumb">
+            </div>
+
+          </router-link>
         </div>
 
 
@@ -23,6 +27,7 @@ export default {
     return {
       search: '',
       drinks: [],
+      favorites: []
     }
   },
   methods: {
@@ -72,12 +77,19 @@ export default {
   .one-drink {
     padding: 10px;
     color: #fff;
+    position: relative;
 
     a {
       text-decoration: none;
     }
 
     h3 {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 0px;
+      padding: 10px 0 10px 20px;
+      background-color: rgba(255, 255, 255, 0.5);
       color: #fff;
       font-family: 'Montserrat';
       font-weight: 300;
@@ -87,9 +99,11 @@ export default {
     }
 
     .drink-img {
+
       img {
         width: 100%;
       }
+
 
     }
 
