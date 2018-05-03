@@ -9,19 +9,6 @@
       <div class="drink-img">
         <img v-bind:src="drink.strDrinkThumb">
       </div>
-
-      <p>{{ drink.strMeasure1}} {{ drink.strIngredient1 }}</p>
-      <p>{{ drink.strMeasure2}} {{ drink.strIngredient2 }}</p>
-      <p>{{ drink.strMeasure3}} {{ drink.strIngredient3 }}</p>
-      <p>{{ drink.strMeasure4}} {{ drink.strIngredient4 }}</p>
-      <p>{{ drink.strMeasure5}} {{ drink.strIngredient5 }}</p>
-      <p>{{ drink.strMeasure6}} {{ drink.strIngredient6 }}</p>
-      <p>{{ drink.strMeasure7}} {{ drink.strIngredient7 }}</p>
-      <p>{{ drink.strMeasure8}} {{ drink.strIngredient8 }}</p>
-      <p>{{ drink.strMeasure9}} {{ drink.strIngredient9 }}</p>
-      <p>{{ drink.strMeasure10}} {{ drink.strIngredient10 }}</p>
-      <p>{{ drink.strMeasure11}} {{ drink.strIngredient11 }}</p>
-      <p> {{ drink.strInstructions }}</p>
     </div>
 
   </div>
