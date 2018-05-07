@@ -1,5 +1,5 @@
 <template lang="html">
-  <div @click="hideMenu(e)" id="grid"> <!-- lägg till klickevent till hideMenu -->
+  <div id="grid"> <!-- lägg till klickevent till hideMenu -->
     <div id="logo">
       <h2>DRINKS</h2>
     </div>
@@ -30,12 +30,8 @@ export default {
     }
   },
   methods: {
-    hideMenu: function(e) {
-      if (e.target.matches('.hamburger')) {
-        console.log("Hello")
-      }
-    }
-    //om man klickar någon annanstans än på bilden ska
+
+
   }
 }
 </script>
