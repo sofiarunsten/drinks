@@ -37,10 +37,17 @@ export default {
 </script>
 
 <style lang="scss">
+$green: #a0ef92;
   * {
     margin: 0;
     padding: 0;
     font-family: 'Open Sans';
+  }
+
+  body {
+    position: relative;
+    background-color: $green;
+    padding-bottom: 50px;
   }
 
 </style>

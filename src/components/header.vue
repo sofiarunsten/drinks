@@ -1,11 +1,11 @@
 <template lang="html">
-  <div id="grid">
+  <div @click="hideMenu(e)" id="grid"> <!-- lägg till klickevent till hideMenu -->
     <div id="logo">
       <h2>DRINKS</h2>
     </div>
 
     <div id="menu" >
-      <img @click="show = !show" src="../img/hamburger2.png" alt="menu icon">
+      <img @click="show = !show" src="../img/hamburger2.png" alt="menu icon" class="hamburger">
     </div>
 
     <transition name="fade">
@@ -30,7 +30,12 @@ export default {
     }
   },
   methods: {
-
+    hideMenu: function(e) {
+      if (e.target.matches('.hamburger')) {
+        console.log("Hello")
+      }
+    }
+    //om man klickar någon annanstans än på bilden ska
   }
 }
 </script>
