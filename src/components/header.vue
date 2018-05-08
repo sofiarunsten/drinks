@@ -1,11 +1,11 @@
 <template lang="html">
-  <div id="grid">
+  <div id="grid"> <!-- lägg till klickevent till hideMenu -->
     <div id="logo">
       <h2>DRINKS</h2>
     </div>
 
     <div id="menu" >
-      <img @click="show = !show" src="../img/hamburger.png" alt="menu icon">
+      <img @click="show = !show" src="../img/hamburger2.png" alt="menu icon" class="hamburger">
     </div>
 
     <transition name="fade">
@@ -31,16 +31,19 @@ export default {
   },
   methods: {
 
+
   }
 }
 </script>
 
 <style lang="scss">
 $nav-bg: #fcfbf9;
-$dark: #fff;
-$text: #97ecef;
+$dark: #141414;
+$text: #fff;
+$orange: #f2b765;
 
 #grid {
+  background-color: $orange;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-areas:
@@ -50,7 +53,6 @@ $text: #97ecef;
 }
 
   #logo {
-    background-color: $dark;
     padding-left: 10px;
     grid-area: logo;
     h2 {
@@ -62,17 +64,16 @@ $text: #97ecef;
   }
 
   #menu {
-    background-color: $dark;
-    padding-right: 10px;
+    padding: 10px;
     grid-area: menu;
     text-align: right;
     img {
-      width: 40px;
+      width: 35px;
     }
   }
 
   nav {
-    background-color: $dark;
+    background-color: $orange;
     padding: 0 10px;
     grid-area: navi;
 

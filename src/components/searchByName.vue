@@ -4,25 +4,18 @@
       <input type="text" placeholder="Search for drinks" v-model="search" />
     </div>
 
-    <div class="one-drink" v-for="drink in drinks">
-      <h3> {{ drink.strDrink }}</h3>
-      <div class="drink-img">
-        <img v-bind:src="drink.strDrinkThumb">
-      </div>
 
-      <p>{{ drink.strMeasure1}} {{ drink.strIngredient1 }}</p>
-      <p>{{ drink.strMeasure2}} {{ drink.strIngredient2 }}</p>
-      <p>{{ drink.strMeasure3}} {{ drink.strIngredient3 }}</p>
-      <p>{{ drink.strMeasure4}} {{ drink.strIngredient4 }}</p>
-      <p>{{ drink.strMeasure5}} {{ drink.strIngredient5 }}</p>
-      <p>{{ drink.strMeasure6}} {{ drink.strIngredient6 }}</p>
-      <p>{{ drink.strMeasure7}} {{ drink.strIngredient7 }}</p>
-      <p>{{ drink.strMeasure8}} {{ drink.strIngredient8 }}</p>
-      <p>{{ drink.strMeasure9}} {{ drink.strIngredient9 }}</p>
-      <p>{{ drink.strMeasure10}} {{ drink.strIngredient10 }}</p>
-      <p>{{ drink.strMeasure11}} {{ drink.strIngredient11 }}</p>
-      <p> {{ drink.strInstructions }}</p>
-    </div>
+        <div class="one-drink" v-for="drink in drinks">
+          <router-link v-bind:to='"/drink/" + drink.idDrink'>
+            <h3> {{ drink.strDrink }} </h3>
+            <!-- Länken till drinksidan måste läggas in på alla komponenter som ska ha den -->
+            <div class="drink-img">
+              <img v-bind:src="drink.strDrinkThumb">
+            </div>
+
+          </router-link>
+        </div>
+
 
   </div>
 
@@ -33,11 +26,10 @@ export default {
   data() {
     return {
       search: '',
-      drinks: [],
+      drinks: []
     }
   },
   methods: {
-
   },
   updated() { //before update för att den alltid ska söka på nytt när man skriver något i sökrutan
     this.$http.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + this.search).then(function(data) {
@@ -49,30 +41,48 @@ export default {
 
 <style lang="scss">
   $orange: #f2b765;
+  $light-orange: #f9cc8e;
   $pink: #ff91b9;
   $blue: #97ecef;
   $green: #a0ef92;
+  $details: #fff;
+
+* {
+  box-sizing: border-box;
+}
 
   #sbn {
 
-  }
-
   .input-div {
-    width: calc(100% - 45px); //***************ÄNDRA DETTA!
+    background-color: $orange;
+    padding-top: 10px;
+    width: 100%; //***************ÄNDRA DETTA!
+
+    ::placeholder {
+      color: $details;
+      opacity: 0.5;
+    }
 
     input {
-      width: 100%;
+      background-color: $light-orange;
+      width: 250px;
       margin-left: 10px;
       padding: 10px;
       text-transform: uppercase;
-      border: 2px solid $blue;
+      border: 2px solid $details;
       margin-bottom:10px;
+      color: $details;
     }
 
     input:focus {
       outline: none;
-      background-color: #f4ffff;
-      color: white;
+      background-color: $details;
+      border: 2px solid $light-orange;
+      color: $orange;
+
+      ::placeholder {
+        color: $orange;
+      }
     }
 
   }
@@ -84,7 +94,19 @@ export default {
   .one-drink {
     padding: 10px;
     color: #fff;
+    position: relative;
+
+    a {
+      text-decoration: none;
+    }
+
     h3 {
+      width: 100%;
+      position: absolute;
+      top: 50%;
+      left: 0px;
+      padding: 10px 0 10px 20px;
+      background-color: rgba(255, 255, 255, 0.5);
       color: #fff;
       font-family: 'Montserrat';
       font-weight: 300;
@@ -94,9 +116,11 @@ export default {
     }
 
     .drink-img {
+
       img {
         width: 100%;
       }
+
 
     }
 
@@ -120,5 +144,6 @@ export default {
   .one-drink:nth-child(4n+1) {
     background-color: $green;
   }
+}
 
 </style>
