@@ -2,9 +2,12 @@
   <div id="drink">
     <button v-on:click="goBack">Go back</button>
     <div class="one-drink" v-for="drink in drinks">
-      <h3> {{ drink.strDrink }} </h3>
-      <div @click="/*liked = !liked; notLiked = !notLiked;*/ favoriteDrink()/*;*/" v-bind:class="{ 'liked': liked, 'not-liked': notLiked }">
+      <div class="top">
+        <h3> {{ drink.strDrink }} </h3>
+        <div @click="favoriteDrink()" v-bind:class="{ 'liked': liked, 'not-liked': notLiked }" title="Click to Like or Unlike Drink">
+        </div>
       </div>
+
       <div class="drink-img">
         <img v-bind:src="drink.strDrinkThumb">
       </div>
@@ -38,8 +41,8 @@ export default {
     return {
       'id': this.$route.params.id, //detta sparar id:t: /drink/****
       'drinks': [],
-      'liked': false,
-      'notLiked': true
+      'liked': false, //för klasserna
+      'notLiked': true //för klasserna
     }
   },
   methods: {
@@ -47,72 +50,46 @@ export default {
       this.$router.go(-1);
     },
     favoriteDrink: function() { //local storage
+      if (this.liked == false) {
 
+        this.$favorites.unshift(this.drinks[0]);
 
-        if (this.$favorites.length === 0) { //om det inte finns några favoritmarkerade drinkar ännu
-           this.$favorites.unshift(this.drinks[0]);
-
-        } else { // blir en oändlig loop om det redan finns en sak i favorit-listan, probem i else??
-          for (var i = 0; i < this.$favorites.length; i++) {
-
-            if (this.$favorites[i].idDrink == this.drinks[0].idDrink) { //om drinken finns i this.$favorites
-              this.$favorites.splice(i, 1);
-
-
-            } else { //om den inte finns med (måste i vara med kanske?????)
-
-              this.$favorites.push(this.drinks[0]); //varför lägger den här till this.drinks[0] i all oändlighet när den är unshift? och inte alls när man har push??
-              console.log(this.$favorites[i]);
-
-            }
+        this.liked = true;
+        this.notLiked = false;
+      } else if (this.liked == true) {
+        for (var i = 0; i < this.$favorites.length; i++) {
+          if (this.$favorites[i].idDrink == this.drinks[0].idDrink) { //om drinken finns i this.$favorites
+            this.$favorites.splice(i, 1);
           }
         }
 
-        console.log(this.$favorites);
+        this.liked = false;
+        this.notLiked = true;
+      }
 
-        /*console.log(this.$favorites);
-        console.log(this.$favorites[0].idDrink);*/
-
-        this.likedOrNot();
-
-        /*
-        SCENARIO ETT: drinken är inte i favoritlistan: ska läggas till
-        this.$favorites.unshift(this.drinks[0]);
-
-        SCENARIO TVÅ: Drinken är redan i favorit-listan: ska tas bort
-
-
-        */
 
       },
       likedOrNot: function() {
-        if (this.$favorites.length === 0) { //om det inte finns några favoritmarkerade drinkar ännu
-          this.liked = false;
-          this.notLiked = true;
-        } else {
-          for (var i = 0; i < this.$favorites.length; i++) {
-            if (this.$favorites[i].idDrink == this.drinks[0].idDrink) { //om drinken finns i this.$favorites
-              console.log("This is happening");
-              this.liked = true;
-              this.notLiked = false;
-            } else { //om den inte finns med
-              this.liked = false;
-              this.notLiked = true;
-            }
+        this.liked = false;
+        this.notLiked = true;
+
+        for (var i = 0; i < this.$favorites.length; i++) {
+          if (this.$favorites[i].idDrink == this.id) {
+            this.liked = true;
+            this.notLiked = false;
           }
         }
+
       }
   },
   created() {
     this.$http.get('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.id).then(function(data) {
         this.drinks = data.body.drinks;
+
+        this.likedOrNot(); // får denna vara här?
     });
 
-    //this.likedOrNot(); måste ha den här där senare
-  }/*,
-  updated() {
-    this.likedOrNot();
-  }*/
+  }
 }
 </script>
 
@@ -165,23 +142,38 @@ $details: #fff;
     font-family: 'Montserrat';
     font-weight: 300;
     text-transform: uppercase;
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom: 10px;
+    display: inline-block;
+    grid-area: name;
   }
 
-  .liked {
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    background-color: red;
+  .top {
+
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    grid-template-areas:
+      "name like"
+    ;
+
+    .liked {
+      grid-area: like;
+      width: 25px;
+      background-image: url("../img/heartliked.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
+
+    .not-liked {
+      grid-area: like;
+      width: 25px;
+      background-image: url("../img/heartnotliked.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
   }
 
-  .not-liked {
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    border: 2px solid red;
-  }
+
 
 
   .drink-img {
