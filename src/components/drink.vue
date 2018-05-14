@@ -3,7 +3,7 @@
     <button v-on:click="goBack">Go back</button>
     <div class="one-drink" v-for="drink in drinks">
       <h3> {{ drink.strDrink }} </h3>
-      <div @click="liked = !liked; notLiked = !notLiked; favoriteDrink();" v-bind:class="{ 'liked': liked, 'not-liked': notLiked }">
+      <div @click="/*liked = !liked; notLiked = !notLiked;*/ favoriteDrink()/*;*/" v-bind:class="{ 'liked': liked, 'not-liked': notLiked }">
       </div>
       <div class="drink-img">
         <img v-bind:src="drink.strDrinkThumb">
@@ -47,38 +47,72 @@ export default {
       this.$router.go(-1);
     },
     favoriteDrink: function() { //local storage
-        if (this.liked == true) {
-          console.log('Nu gillas drinken');
 
-          this.$favorites.unshift(this.drinks);
 
+        if (this.$favorites.length === 0) { //om det inte finns några favoritmarkerade drinkar ännu
+           this.$favorites.unshift(this.drinks[0]);
+
+        } else { // blir en oändlig loop om det redan finns en sak i favorit-listan, probem i else??
           for (var i = 0; i < this.$favorites.length; i++) {
 
+            if (this.$favorites[i].idDrink == this.drinks[0].idDrink) { //om drinken finns i this.$favorites
+              this.$favorites.splice(i, 1);
+
+
+            } else { //om den inte finns med (måste i vara med kanske?????)
+
+              this.$favorites.push(this.drinks[0]); //varför lägger den här till this.drinks[0] i all oändlighet när den är unshift? och inte alls när man har push??
               console.log(this.$favorites[i]);
-            }
 
-        } else { //om drinken inte redan finns i favorites
-          console.log('nu gillas inte drinken');
-
-          for (var i = 0; i < this.$favorites.length; i++) {
-            if (this.$favorites[i].idDrink == this.drinks.idDrink) {
-              this.$favorites.splice(i, 1); //******detta funkar inte!!!
-
-              console.log(this.$favorites[i]);
             }
           }
+        }
+
+        console.log(this.$favorites);
+
+        /*console.log(this.$favorites);
+        console.log(this.$favorites[0].idDrink);*/
+
+        this.likedOrNot();
+
+        /*
+        SCENARIO ETT: drinken är inte i favoritlistan: ska läggas till
+        this.$favorites.unshift(this.drinks[0]);
+
+        SCENARIO TVÅ: Drinken är redan i favorit-listan: ska tas bort
 
 
+        */
 
-          console.log(this.$favorites[0]);
+      },
+      likedOrNot: function() {
+        if (this.$favorites.length === 0) { //om det inte finns några favoritmarkerade drinkar ännu
+          this.liked = false;
+          this.notLiked = true;
+        } else {
+          for (var i = 0; i < this.$favorites.length; i++) {
+            if (this.$favorites[i].idDrink == this.drinks[0].idDrink) { //om drinken finns i this.$favorites
+              console.log("This is happening");
+              this.liked = true;
+              this.notLiked = false;
+            } else { //om den inte finns med
+              this.liked = false;
+              this.notLiked = true;
+            }
+          }
         }
       }
   },
   created() {
     this.$http.get('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.id).then(function(data) {
         this.drinks = data.body.drinks;
-    })
-  }
+    });
+
+    //this.likedOrNot(); måste ha den här där senare
+  }/*,
+  updated() {
+    this.likedOrNot();
+  }*/
 }
 </script>
 
