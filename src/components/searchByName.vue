@@ -7,11 +7,17 @@
 
         <div class="one-drink" v-for="drink in drinks">
           <router-link v-bind:to='"/drink/" + drink.idDrink'>
-            <h3> {{ drink.strDrink }} </h3>
+
+          <div class="grid-one-drink">
+            <div class="title">
+              <h3> {{ drink.strDrink }} </h3>
+            </div>
+
             <!-- Länken till drinksidan måste läggas in på alla komponenter som ska ha den -->
             <div class="drink-img">
               <img v-bind:src="drink.strDrinkThumb">
             </div>
+          </div>
 
           </router-link>
         </div>
@@ -41,100 +47,99 @@ export default {
 
 <style lang="scss">
   $orange: #f2b765;
-  $light-orange: #f9cc8e;
+  $background: #f9f7f7;
   $pink: #ff91b9;
   $blue: #97ecef;
   $green: #a0ef92;
-  $details: #fff;
+  $dark-blue: #3fb8ba;
 
-* {
-  box-sizing: border-box;
-}
 
   #sbn {
+    box-sizing: border-box;
 
   .input-div {
-    background-color: $orange;
-    padding-top: 10px;
-    width: 100%; //***************ÄNDRA DETTA!
+    margin: 10px;
+    text-align: center;
 
     ::placeholder {
-      color: $details;
+      color: $dark-blue;
       opacity: 0.5;
     }
 
     input {
-      background-color: $light-orange;
-      width: 250px;
-      margin-left: 10px;
+      background-color: $background;
       padding: 10px;
       text-transform: uppercase;
-      border: 2px solid $details;
-      margin-bottom:10px;
-      color: $details;
+      border: 2px solid $blue;
+      color: $dark-blue;
+      display: inline-block;
+      width: 230px;
     }
 
     input:focus {
       outline: none;
-      background-color: $details;
-      border: 2px solid $light-orange;
-      color: $orange;
+      background-color: $background;
+      border: 2px solid $dark-blue;
+      color: $dark-blue;
 
       ::placeholder {
         color: $orange;
       }
     }
-
   }
 
-
-
-
-
   .one-drink {
+    margin: 10px;
     padding: 10px;
-    color: #fff;
-    position: relative;
 
-    a {
-      text-decoration: none;
+
+    .grid-one-drink {
+      display: grid;
+      grid-template-columns: 35% 1fr;
+      grid-template-areas:
+      "drinkimg title"
+      ;
     }
 
-    h3 {
-      width: 100%;
-      position: absolute;
-      top: 50%;
-      left: 0px;
-      padding: 10px 0 10px 20px;
-      background-color: rgba(255, 255, 255, 0.5);
-      color: #fff;
-      font-family: 'Montserrat';
-      font-weight: 300;
-      text-transform: uppercase;
-      font-size: 30px;
-      margin-bottom: 10px;
+    .title {
+      grid-area: title;
     }
 
     .drink-img {
+      grid-area: drinkimg;
 
       img {
         width: 100%;
-      }
 
+        padding: 5px;
+        border: 3px solid $background;
+      }
+    }
+
+    h3 {
+      font-family: 'Montserrat';
+      text-transform: uppercase;
+      color: $background;
+      font-weight: 400;
+      padding: 10px;
+      display: inline-block;
+      margin-left: 20px;
 
     }
 
-    p:last-child {
-      margin-top: 15px;
+    a {
+      text-decoration: none;
+      color: black;
+
     }
   }
 
   .one-drink:nth-child(4n-2) {
-    background-color: $orange;
+    background-color: $pink;
   }
 
   .one-drink:nth-child(4n-1) {
-    background-color: $pink;
+    background-color: $orange;
   }
 
   .one-drink:nth-child(4n) {
@@ -144,6 +149,14 @@ export default {
   .one-drink:nth-child(4n+1) {
     background-color: $green;
   }
-}
+
+
+} //end #sbn
+
+
+
+
+
+
 
 </style>

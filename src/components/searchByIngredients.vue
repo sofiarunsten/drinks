@@ -1,6 +1,7 @@
 <template>
-    <div>
-        <h1>Search drink by ingredient</h1>
+    <div id="sbi">
+        <!--
+        @check kopplar ett event till checkboxen, -->
         <form>
             <div id="selectSpirites">
                 <h2>Select ingredients</h2>
@@ -11,19 +12,21 @@
             </div>
         </form>
 
-
-
         <h2>Your Ingredients</h2>
         <p class="ingredient-list" v-for="ingredient in drinks.ingredients">{{ingredient}}</p>
 
+        <div class="one-drink" v-for="drink in drinks.drinkFromIngredients"> <!-- h3, bild för varje drink som finns -->
+          <router-link v-bind:to='"/drink/" + drink.idDrink'>
+            <div class="grid-one-drink">
+              <div class="title">
+                <h3> {{ drink.strDrink }}</h3>
+              </div>
 
-        <!-- h3, bild för varje drink som finns -->
-        <div class="one-drink" v-for="drink in drinks.drinkFromIngredients">
-            <h3> {{ drink.strDrink }}</h3>
-            
-            <div class="drink-img">
-                <img v-bind:src="drink.strDrinkThumb">
+              <div class="drink-img">
+                  <img v-bind:src="drink.strDrinkThumb">
+              </div>
             </div>
+          </router-link>
         </div>
 
     </div>
@@ -204,10 +207,126 @@ export default {
 }
 
 window.onload = init;*/
+
+
 </script>
 
-<style scoped>
 .ingredient {
   display: inline;
 }
+
+<style lang="scss">
+  $orange: #f2b765;
+  $background: #f9f7f7;
+  $pink: #ff91b9;
+  $blue: #97ecef;
+  $green: #a0ef92;
+  $dark-blue: #3fb8ba;
+
+
+  #sbi {
+    box-sizing: border-box;
+
+  .input-div {
+    margin: 10px;
+    text-align: center;
+
+    ::placeholder {
+      color: $dark-blue;
+      opacity: 0.5;
+    }
+
+    input {
+      background-color: $background;
+      padding: 10px;
+      text-transform: uppercase;
+      border: 2px solid $blue;
+      color: $dark-blue;
+      display: inline-block;
+      width: 230px;
+    }
+
+    input:focus {
+      outline: none;
+      background-color: $background;
+      border: 2px solid $dark-blue;
+      color: $dark-blue;
+
+      ::placeholder {
+        color: $orange;
+      }
+    }
+  }
+
+  .one-drink {
+    margin: 10px;
+    padding: 10px;
+
+
+    .grid-one-drink {
+      display: grid;
+      grid-template-columns: 35% 1fr;
+      grid-template-areas:
+      "drinkimg title"
+      ;
+    }
+
+    .title {
+      grid-area: title;
+    }
+
+    .drink-img {
+      grid-area: drinkimg;
+
+      img {
+        width: 100%;
+
+        padding: 5px;
+        border: 3px solid $background;
+      }
+    }
+
+    h3 {
+      font-family: 'Montserrat';
+      text-transform: uppercase;
+      color: $background;
+      font-weight: 400;
+      padding: 10px;
+      display: inline-block;
+      margin-left: 20px;
+
+    }
+
+    a {
+      text-decoration: none;
+      color: black;
+
+    }
+  }
+
+  .one-drink:nth-child(4n-2) {
+    background-color: $pink;
+  }
+
+  .one-drink:nth-child(4n-1) {
+    background-color: $orange;
+  }
+
+  .one-drink:nth-child(4n) {
+    background-color: $blue;
+  }
+
+  .one-drink:nth-child(4n+1) {
+    background-color: $green;
+  }
+
+
+} //end #sbi
+
+
+
+
+
+
+
 </style>

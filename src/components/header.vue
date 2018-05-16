@@ -1,24 +1,19 @@
 <template lang="html">
-  <div id="grid"> <!-- lägg till klickevent till hideMenu -->
+  <div id="header"> <!-- lägg till klickevent till hideMenu -->
     <div id="logo">
-      <h2>DRINKS</h2>
+      <router-link to="/"><h2>cocktails</h2></router-link>
     </div>
 
-    <div id="menu" >
-      <img @click="show = !show" src="../img/hamburger2.png" alt="menu icon" class="hamburger">
-    </div>
+    <nav>
+      <ul>
+        <router-link to="/drinkname"><li>name</li> <div class="testing"></div></router-link>
+        <router-link to="/ingredients"><li>ingredient</li><div class="testing"></div></router-link>
+        <router-link to="/randomdrink"><li>random</li><div class="testing"></div></router-link>
+        <router-link to="/favorites"><li>favorites</li><div class="testing"></div></router-link>
+      </ul>
+      <div id="line"></div>
+    </nav>
 
-    <transition name="fade">
-      <nav v-if="show">
-        <ul>
-          <li><router-link to="/">Home</router-link></li> <!--router-link istället för a för att det inte uppdaterar sidan, vilketa gör-->
-          <li><router-link to="/drinkname">Search drink by name</router-link></li>
-          <li><router-link to="/ingredient">Search drink by ingredient</router-link></li>
-          <li><router-link to="/randomdrink">Get a random drink</router-link></li>
-          <li><router-link to="/favorites">Your favorite drinks!</router-link></li>
-        </ul>
-      </nav>
-    </transition>
   </div>
 </template>
 
@@ -37,71 +32,91 @@ export default {
 </script>
 
 <style lang="scss">
-$nav-bg: #fcfbf9;
-$dark: #141414;
-$text: #fff;
 $orange: #f2b765;
+$background: #f9f7f7;
+$pink: #ff91b9;
+$blue: #97ecef;
+$green: #a0ef92;
+$orange: #f2b765;
+$dark-blue: #3fb8ba;
 
-#grid {
-  background-color: $orange;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas:
-    "logo menu"
-    "navi navi"
-  ;
-}
 
-  #logo {
-    padding-left: 10px;
-    grid-area: logo;
-    h2 {
-      font-family: 'Montserrat';
-      font-weight: 300;
-      line-height: 50px;
-      color: $text;
-    }
+#header {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+
+
+  a {
+    text-decoration: none;
   }
 
-  #menu {
-    padding: 10px;
-    grid-area: menu;
-    text-align: right;
-    img {
-      width: 35px;
+  #logo {
+    font-family: 'Playfair Display';
+    margin-bottom: 10px;
+
+    a {
+      color: $pink;
     }
   }
 
   nav {
-    background-color: $orange;
-    padding: 0 10px;
-    grid-area: navi;
+    font-family: 'Montserrat';
+    margin-bottom: 15px;
+    font-size: 12px;
+    position: relative;
+    display: inline-block;
 
-    ul:first-child {
-      margin-top: 10px;
+    a {
+      color: $green;
+      margin-right: 10px;
     }
+
+    a:last-child {
+      margin-right: 0;
+    }
+
     ul {
       list-style-type: none;
-      text-align: right;
-      margin: 0 auto;
+      display: inline-block;
+      width: 240px;
 
       li {
-        margin-bottom: 15px;
-        a {
-          color: $text;
-          text-decoration: none;
-        }
+        display: inline;
+      }
+
+      .router-link-exact-active {
+        position: relative;
+      }
+
+      .testing {
+        display: none;
+      }
+
+      .router-link-exact-active .testing {
+        height: 1.5px;
+        display: inline-block;
+        background-color: $dark-blue;
+        z-index: 9;
+        position: absolute;
+        top: 18px;
+        left: 0;
+        width: 100%;
       }
     }
-  }
 
+    #line {
+      width: 240px;
+      height: 1.5px;
+      background-color: $blue;
+      display: inline-block;
+      position: absolute;
+      top: 18px;
+      left: 0;
+      }
+  } //end nav
+} //end header
 
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
-  }
 
 </style>

@@ -7,7 +7,7 @@
           <img src="src/img/drink1.png">
         </div>
         <div class="right">
-          <p> Search drink by name</p>
+          <p> Search by name</p>
         </div>
       </div>
     </router-link>
@@ -41,7 +41,7 @@
           <img src="src/img/drink3.png">
         </div>
         <div class="right">
-          <p>Your favorite drinks</p>
+          <p>Favorite drinks</p>
         </div>
 
       </div>
@@ -62,11 +62,10 @@ $blue: #97ecef;
 $green: #a0ef92;
 
 
-* {
-  box-sizing: border-box;
-}
 #startpage {
   padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 
   img {
     height: 50px;
@@ -78,30 +77,27 @@ $green: #a0ef92;
   }
 
   div {
-    display: block;
-    width: 100%;
-    margin: 0;
-    height: 70px;
-    line-height: 50px;
     font-family: 'Montserrat';
     text-transform: uppercase;
 
+
     p {
       display: inline;
-      line-height: 70px;
+      font-size: 14px;
+      line-height: 60px;
     }
   }
 
   #first {
-    background-color: #f2b765;
+    background-color: $orange;
   }
 
   #second {
-    background-color: #ff91b9;
+    background-color: $pink;
   }
 
   #third {
-    background-color: #97ecef;
+    background-color: $blue;
   }
 
   #fourth {
@@ -110,19 +106,22 @@ $green: #a0ef92;
 
   .section-grid {
     display: grid;
-    grid-template-columns: 25% 1fr;
+    grid-template-columns: 18% 1fr;
     grid-template-areas:
     "left right"
     ;
+    margin: 15px;
+    padding: 10px;
+    height: 60px;
 
     .left {
       grid-area: left;
       text-align: right;
-      padding: 10px;
     }
 
     .right {
       grid-area: right;
+      text-align: center;
     }
   }
 }
