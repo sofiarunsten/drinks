@@ -12,22 +12,23 @@ export default {
 
 <style lang="scss">
 $orange: #f2b765;
-$light-orange: #f9cc8e;
 $pink: #ff91b9;
 $blue: #97ecef;
 $green: #a0ef92;
-$details: #fff;
+$background: #fafafa;
 
 
 #footer {
+  box-sizing: border-box;
   width: 100%;
-  background-color: $green;
   position: absolute;
   bottom: 0;
   left: 0;
-  color: $details;
+  color: #000;
   padding: 10px;
   font-size: 9px;
   text-align: center;
+  font-family: 'Playfair Display';
 }
+
 </style>

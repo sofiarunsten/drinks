@@ -101,132 +101,101 @@ $blue: #97ecef;
 $green: #a0ef92;
 $details: #fff;
 
-#sbn {
+#drink {
+  .input-div {
+    width: calc(100% - 45px); //***************ÄNDRA DETTA!
 
-}
-
-.input-div {
-  width: calc(100% - 45px); //***************ÄNDRA DETTA!
-
-  input {
-    width: 100%;
-    margin-left: 10px;
-    padding: 10px;
-    text-transform: uppercase;
-    border: 2px solid $blue;
-    margin-bottom:10px;
-  }
-
-  input:focus {
-    outline: none;
-    background-color: #f4ffff;
-    color: $pink;
-  }
-
-}
-
-
-
-
-
-.one-drink {
-  padding: 10px;
-  color: #fff;
-
-  a {
-    text-decoration: none;
-  }
-
-  h3 {
-    color: #fff;
-    font-family: 'Montserrat';
-    font-weight: 300;
-    text-transform: uppercase;
-    font-size: 25px;
-    margin-bottom: 10px;
-    display: inline-block;
-    grid-area: name;
-  }
-
-  .top {
-
-    display: grid;
-    grid-template-columns: 1fr 50px;
-    grid-template-areas:
-      "name like"
-    ;
-
-    .liked {
-      grid-area: like;
-      width: 25px;
-      background-image: url("../img/heartliked.png");
-      background-repeat: no-repeat;
-      background-size: contain;
-    }
-
-    .not-liked {
-      grid-area: like;
-      width: 25px;
-      background-image: url("../img/heartnotliked.png");
-      background-repeat: no-repeat;
-      background-size: contain;
-    }
-  }
-
-
-
-
-  .drink-img {
-    img {
+    input {
       width: 100%;
+      margin-left: 10px;
+      padding: 10px;
+      text-transform: uppercase;
+      border: 2px solid $blue;
+      margin-bottom:10px;
+    }
+
+    input:focus {
+      outline: none;
+      background-color: #f4ffff;
+      color: $pink;
     }
 
   }
 
-  h4 {
-    font-weight:400;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 5px;
-  }
 
-  .ingredients {
-    p:last-child {
-      margin-top: 15px;
+
+
+
+  .one-drink {
+    padding: 10px;
+    color: #fff;
+
+    a {
+      text-decoration: none;
+    }
+
+    h3 {
+      color: #fff;
+      font-family: 'Montserrat';
+      font-weight: 300;
+      text-transform: uppercase;
+      font-size: 20px;
+      line-height: 35px;
+      margin-bottom: 10px;
+      display: inline-block;
+      grid-area: name;
+    }
+
+    .top {
+
+      display: grid;
+      grid-template-columns: 1fr 25px;
+      grid-template-areas:
+        "name like"
+      ;
+
+      .liked {
+        grid-area: like;
+        width: 25px;
+        background-image: url("../img/heartliked.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+
+      .not-liked {
+        grid-area: like;
+        width: 25px;
+        background-image: url("../img/heartnotliked.png");
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
+    }
+
+
+
+
+    .drink-img {
+      img {
+        width: 100%;
+      }
+
+    }
+
+    h4 {
+      font-weight:400;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 5px;
+    }
+
+    .ingredients {
+      p:last-child {
+        margin-top: 15px;
+      }
     }
   }
 }
 
-.one-drink:nth-child(4n-2) {
-  background-color: $orange;
 
-  h4 {
-  border: 2px solid $light-orange;
-  }
-}
-
-.one-drink:nth-child(4n-1) {
-  background-color: $pink;
-
-  h4 {
-
-  }
-}
-
-.one-drink:nth-child(4n) {
-  background-color: $blue;
-
-  h4 {
-
-  }
-}
-
-.one-drink:nth-child(4n+1) {
-  background-color: $green;
-
-  h4 {
-
-  }
-}
 
 </style>
