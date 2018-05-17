@@ -123,6 +123,7 @@ export default {
           );
         }
       }
+      this.drinks.drinkIngredients.sort();
     },
 
     getDrinks: function() {
