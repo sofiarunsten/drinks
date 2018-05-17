@@ -12,8 +12,10 @@
             </div>
         </form>
 
-        <h2>Your Ingredients</h2>
-        <p class="ingredient-list" v-for="ingredient in drinks.ingredients">{{ingredient}}</p>
+        <h2 id="ingredientHeading">Your Ingredients</h2>
+        <div class="ingredient-list" v-for="ingredient in drinks.ingredients">{{ingredient}}
+          <img id="x" src="src/img/x.png" v-model="drinks.removeThisIngredient" @click="removeIngredient(ingredient)">
+        </div>
 
         <div class="one-drink" v-for="drink in drinks.drinkFromIngredients"> <!-- h3, bild för varje drink som finns -->
           <router-link v-bind:to='"/drink/" + drink.idDrink'>
@@ -45,7 +47,7 @@ export default {
         selectedIngredient: "", //vald ingridiens
         ingredients: [], //array med alla selected ingredients
         drinkFromIngredients: [], //drinks that contain selected ingredients
-        drinkTitles: [],
+        removeThisIngredient: "",
         drinkName: [],
         drinkIngredients: [], //alla ingridienser som finns i drinkarna från alcoholic drinks
         drinkId: [], //alcoholic drinks
@@ -127,7 +129,7 @@ export default {
       this.drinks.drinkFromIngredients = []; //gör en tillfällig array ist.
 
       //selected ingredient är string som läggs in i array ingredients
-      if (this.drinks.ingredients.indexOf(this.drinks.selectedIngredient) === -1) {
+      if (this.drinks.selectedIngredient && this.drinks.ingredients.indexOf(this.drinks.selectedIngredient) === -1) {
         this.drinks.ingredients.push(this.drinks.selectedIngredient);
       }
 
@@ -198,6 +200,21 @@ export default {
           }
         }.bind(this) //så att this fortf är vue componenten (annars function)
       );
+    },
+
+    removeIngredient: function(ing){
+      //ta bort ingredient i drinks.ingredients
+      //kör getDrinks
+      var valueToRemove = this.drinks.removeThisIngredient;
+      console.log("haha", ing);
+
+
+      this.drinks.ingredients = this.drinks.ingredients.filter(function(item){
+        return item !== ing;
+      });
+      this.drinks.selectedIngredient = '';
+      this.no_more_drinks = false;
+      this.getDrinks();
     }
   }
 };
@@ -318,6 +335,26 @@ window.onload = init;*/
 
   .one-drink:nth-child(4n+1) {
     background-color: $green;
+  }
+
+
+  .ingredient-list{
+    background-color: $dark-blue;
+    padding: 5px;
+    margin: 10px;
+    overflow: hidden;
+    width: 170px;
+  }
+
+  #ingredientHeading{
+    margin-bottom: 15px;
+  }
+
+  #x {
+    width: 20px;
+    height: 20px;
+    float: right;
+    
   }
 
 
