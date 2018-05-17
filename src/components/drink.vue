@@ -1,6 +1,9 @@
 <template lang="html">
   <div id="drink">
-    <button v-on:click="goBack">Go back</button>
+    <div id="buttoncontainer">
+      <button v-on:click="goBack">Go back</button>
+    </div>
+
     <div class="one-drink" v-for="drink in drinks">
       <div class="top">
         <h3> {{ drink.strDrink }} </h3>
@@ -12,7 +15,10 @@
         <img v-bind:src="drink.strDrinkThumb">
       </div>
 
-      <h4>Ingredients</h4>
+      <div class="header-container">
+        <h4>Ingredients</h4>
+      </div>
+
 
       <div class="ingredients">
         <p> {{ drink.strMeasure1 }} {{drink.strIngredient1 }}</p>
@@ -27,8 +33,9 @@
         <p> {{ drink.strMeasure10 }} {{drink.strIngredient10 }}</p>
       </div>
 
-
-      <h4>Instructions</h4>
+      <div class="header-container">
+        <h4>Instructions</h4>
+      </div>
       <p> {{ drink.strInstructions}}</p>
     </div>
 
@@ -56,6 +63,7 @@ export default {
 
         this.liked = true;
         this.notLiked = false;
+        console.log("Nu gillas den");
       } else if (this.liked == true) {
         for (var i = 0; i < this.$favorites.length; i++) {
           if (this.$favorites[i].idDrink == this.drinks[0].idDrink) { //om drinken finns i this.$favorites
@@ -95,49 +103,55 @@ export default {
 
 <style lang="scss">
 $orange: #f2b765;
-$light-orange: #f9cc8e;
+$background: #fafafa;
 $pink: #ff91b9;
+$light-pink: #ffccde;
 $blue: #97ecef;
 $green: #a0ef92;
-$details: #fff;
+$dark-blue: #3fb8ba;
 
 #drink {
-  .input-div {
-    width: calc(100% - 45px); //***************ÄNDRA DETTA!
+  padding: 10px;
+  font-family: 'Montserrat';
+  color: white;
 
-    input {
-      width: 100%;
-      margin-left: 10px;
-      padding: 10px;
+  #buttoncontainer {
+    text-align: center;
+    button {
+      padding: 5px 10px;
+      background-color: $blue;
+      border-radius: 15px;
       text-transform: uppercase;
       border: 2px solid $blue;
-      margin-bottom:10px;
+      color: $dark-blue;
+      display: inline-block;
+      margin-bottom: 10px;
+      font-weight: 700;
     }
-
-    input:focus {
-      outline: none;
-      background-color: #f4ffff;
-      color: $pink;
-    }
-
   }
 
-
-
-
+  p {
+    font-size: 14px;
+  }
 
   .one-drink {
     padding: 10px;
-    color: #fff;
+    border: 2px solid $pink;
+    background-color: $light-pink;
 
+    ::-moz-selection {
+       background-color: $pink;
+    }
+    ::selection {
+        background-color: $pink;
+    }
     a {
       text-decoration: none;
     }
 
     h3 {
-      color: #fff;
-      font-family: 'Montserrat';
-      font-weight: 300;
+      color: $pink;
+      font-weight: 400;
       text-transform: uppercase;
       font-size: 20px;
       line-height: 35px;
@@ -172,13 +186,19 @@ $details: #fff;
     }
 
 
-
-
     .drink-img {
+      text-align: center;
       img {
-        width: 100%;
+        width: 90%;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        padding: 5px;
       }
 
+    }
+
+    .header-container {
+      margin-top: 5px;
+      text-align: center;
     }
 
     h4 {
@@ -186,6 +206,11 @@ $details: #fff;
       text-transform: uppercase;
       text-align: center;
       padding: 5px;
+      color: $pink;
+      padding: 5px;
+      border: 2px solid $pink;
+      display: inline-block;
+      margin-bottom: 7px;
     }
 
     .ingredients {
@@ -194,7 +219,7 @@ $details: #fff;
       }
     }
   }
-}
+} //end drinks id
 
 
 

@@ -47,7 +47,7 @@ export default {
 
 <style lang="scss">
   $orange: #f2b765;
-  $background: #f9f7f7;
+  $background: #fafafa;
   $pink: #ff91b9;
   $blue: #97ecef;
   $green: #a0ef92;
