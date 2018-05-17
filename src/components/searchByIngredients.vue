@@ -12,13 +12,14 @@
             </div>
         </form>
 
-        <div id="yourIngredients">
-          <h3>Your Ingredients</h3>
-          <div class="ingredient-list">
-            <p v-for="ingredient in drinks.ingredients">{{ingredient}}</p>
-            <!-- Sätt kryss här?? -->
-          </div>
 
+        <div id="yourIngredients">
+
+          <h3 id="ingredientHeading">Your Ingredients</h3>
+          <div class="ingredient-list" v-for="ingredient in drinks.ingredients">
+            <p>{{ingredient}}</p>
+            <img id="x" src="src/img/vittx.png" v-model="drinks.removeThisIngredient" @click="removeIngredient(ingredient)">
+          </div>
         </div>
 
         <div class="one-drink" v-for="drink in drinks.drinkFromIngredients"> <!-- h3, bild för varje drink som finns -->
@@ -51,7 +52,7 @@ export default {
         selectedIngredient: "", //vald ingridiens
         ingredients: [], //array med alla selected ingredients
         drinkFromIngredients: [], //drinks that contain selected ingredients
-        drinkTitles: [],
+        removeThisIngredient: "",
         drinkName: [],
         drinkIngredients: [], //alla ingridienser som finns i drinkarna från alcoholic drinks
         drinkId: [], //alcoholic drinks
@@ -133,7 +134,7 @@ export default {
       this.drinks.drinkFromIngredients = []; //gör en tillfällig array ist.
 
       //selected ingredient är string som läggs in i array ingredients
-      if (this.drinks.ingredients.indexOf(this.drinks.selectedIngredient) === -1) {
+      if (this.drinks.selectedIngredient && this.drinks.ingredients.indexOf(this.drinks.selectedIngredient) === -1) {
         this.drinks.ingredients.push(this.drinks.selectedIngredient);
       }
 
@@ -204,6 +205,21 @@ export default {
           }
         }.bind(this) //så att this fortf är vue componenten (annars function)
       );
+    },
+
+    removeIngredient: function(ing){
+      //ta bort ingredient i drinks.ingredients
+      //kör getDrinks
+      var valueToRemove = this.drinks.removeThisIngredient;
+      console.log("haha", ing);
+
+
+      this.drinks.ingredients = this.drinks.ingredients.filter(function(item){
+        return item !== ing;
+      });
+      this.drinks.selectedIngredient = '';
+      this.no_more_drinks = false;
+      this.getDrinks();
     }
   }
 };
@@ -236,6 +252,7 @@ window.onload = init;*/
 
     #selectSpirites {
       font-family: 'Montserrat';
+      text-align: center;
 
       h3 {
         font-weight:400;
@@ -264,6 +281,7 @@ window.onload = init;*/
     #yourIngredients {
       font-family: 'Montserrat';
       margin-top: 20px;
+      text-align: center;
 
       h3 {
         font-weight: 400;
@@ -274,17 +292,28 @@ window.onload = init;*/
       }
 
       .ingredient-list {
+        background-color: $pink;
+        padding: 5px;
+        border-radius: 15px;
+        display: inline-block;
+        margin: 3px;
 
         p {
           font-size: 12px;
-          background-color: $pink;
-          padding: 7px;
-          border-radius: 15px;
           color: white;
           display: inline-block;
           margin: 3px;
+          cursor: default;
+        }
+
+        #x {
+          width: 12px;
+          padding: 2px;
+          cursor: pointer;
         }
       }
+
+
     }
 
   .input-div {
@@ -379,6 +408,11 @@ window.onload = init;*/
   .one-drink:nth-child(4n+1) {
     background-color: $green;
   }
+
+
+
+
+
 
 
 } //end #sbi
