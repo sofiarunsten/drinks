@@ -57,6 +57,7 @@ export default {
       this.$router.go(-1);
     },
     favoriteDrink: function() { //local storage
+      console.log(this.$favorites); //varför är den tom här??
       if (this.liked == false) {
 
         this.$favorites.unshift(this.drinks[0]);
@@ -75,6 +76,8 @@ export default {
         this.notLiked = true;
       }
 
+      console.log(this.$favorites);
+      localStorage.favoriteDrinks = JSON.stringify(this.$favorites); //skriver över localStorage med den nya favoritlistan.
 
       },
       likedOrNot: function() {
@@ -91,12 +94,17 @@ export default {
       }
   },
   created() {
+    if (localStorage.favoriteDrinks !== undefined) {
+      this.$favorites = JSON.parse(localStorage.favoriteDrinks);
+    }
+  },
+  mounted() {
     this.$http.get('https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=' + this.id).then(function(data) {
         this.drinks = data.body.drinks;
 
-        this.likedOrNot(); // får denna vara här?
+        this.likedOrNot();
     });
-
+    console.log(this.$favorites);
   }
 }
 </script>

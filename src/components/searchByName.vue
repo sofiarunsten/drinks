@@ -13,7 +13,6 @@
               <h3> {{ drink.strDrink }} </h3>
             </div>
 
-            <!-- Länken till drinksidan måste läggas in på alla komponenter som ska ha den -->
             <div class="drink-img">
               <img v-bind:src="drink.strDrinkThumb">
             </div>

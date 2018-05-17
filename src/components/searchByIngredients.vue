@@ -90,7 +90,7 @@ export default {
     //kör getIngredients function
     loopDrinkId: function() {
       for (var j = 0; j < this.drinks.drinkId.length; j++) {
-        console.log("hgdgdgfdugdjgdjg");
+
         this.$http
           .get(
             "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" +
@@ -205,6 +205,7 @@ export default {
           }
         }.bind(this) //så att this fortf är vue componenten (annars function)
       );
+      
     },
 
     removeIngredient: function(ing){

@@ -33,6 +33,11 @@ export default {
     goBack: function() {
       this.$router.go(-1);
     }
+  },
+  created() {
+    if (localStorage.favoriteDrinks !== undefined) {
+      this.$favorites = JSON.parse(localStorage.favoriteDrinks);
+    }
   }
 }
 </script>
@@ -58,7 +63,6 @@ $dark-blue: #3fb8ba;
       border: 2px solid $blue;
       color: $dark-blue;
       display: inline-block;
-      margin-bottom: 10px;
       font-weight: 700;
     }
   }
