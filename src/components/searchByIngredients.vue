@@ -1,7 +1,5 @@
 <template>
     <div id="sbi">
-        <!--
-        @check kopplar ett event till checkboxen, -->
         <form>
             <div id="selectSpirites">
                 <h2>Select ingredients</h2>
@@ -48,7 +46,6 @@ export default {
         ingredients: [], //array med alla selected ingredients
         drinkFromIngredients: [], //drinks that contain selected ingredients
         removeThisIngredient: "",
-        drinkName: [],
         drinkIngredients: [], //alla ingridienser som finns i drinkarna från alcoholic drinks
         drinkId: [], //alcoholic drinks
         allDrinkInfo: [] //allt om drinken
@@ -103,14 +100,11 @@ export default {
     //om ingridiensen inte redan finns i drinkIngredients spara i array
     getIngredients: function() {
       for (var i = 0; i < this.drinks.allDrinkInfo.length; i++) {
-        if (
-          this.drinks.drinkIngredients.indexOf(
-            this.drinks.allDrinkInfo[i].strIngredient1
-          ) === -1
-        ) {
-          this.drinks.drinkIngredients.push(
-            this.drinks.allDrinkInfo[i].strIngredient1
-          );
+        var counter = 1;
+        for (var j = 0; j < 15; j++){
+        if (this.drinks.drinkIngredients.indexOf(this.drinks.allDrinkInfo[i].strIngredient1) === -1) {
+          this.drinks.drinkIngredients.push(this.drinks.allDrinkInfo[i].strIngredient1);
+        }
         }
 
         if (
@@ -123,11 +117,12 @@ export default {
           );
         }
       }
+
       this.drinks.drinkIngredients.sort();
     },
 
     getDrinks: function() {
-      this.drinks.drinkFromIngredients = []; //gör en tillfällig array ist.
+      this.drinks.drinkFromIngredients = []; 
 
       //selected ingredient är string som läggs in i array ingredients
       if (this.drinks.selectedIngredient && this.drinks.ingredients.indexOf(this.drinks.selectedIngredient) === -1) {
