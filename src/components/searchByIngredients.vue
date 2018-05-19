@@ -18,6 +18,9 @@
             <p>{{ingredient}}</p>
             <img id="x" src="src/img/vittx.png" v-model="drinks.removeThisIngredient" @click="removeIngredient(ingredient)">
           </div>
+          
+          
+          <p>{{drinks.message}}</p>
         </div>
 
         <div class="one-drink" v-for="drink in drinks.drinkFromIngredients"> <!-- h3, bild för varje drink som finns -->
@@ -53,7 +56,8 @@ export default {
         removeThisIngredient: "",
         drinkIngredients: [], //alla ingridienser som finns i drinkarna från alcoholic drinks
         drinkId: [], //alcoholic drinks
-        allDrinkInfo: [] //allt om drinken
+        allDrinkInfo: [], //allt om drinken
+        message: ""
       }
     };
   },
@@ -62,7 +66,9 @@ export default {
   mounted: function() {
     console.log("mounted", this);
     this.getAlcoholicDrinks();
-  },
+  //init();
+},
+
   methods: {
     //hämta alla drinkar i api alkoholic drinks
     //spara drinkid i drinkId
@@ -105,7 +111,6 @@ export default {
     //om ingridiensen inte redan finns i drinkIngredients spara i array
     getIngredients: function() {
       for (var i = 0; i < this.drinks.allDrinkInfo.length; i++) {
-        var counter = 1;
         for (var j = 0; j < 15; j++){
         if (this.drinks.drinkIngredients.indexOf(this.drinks.allDrinkInfo[i].strIngredient1) === -1) {
           this.drinks.drinkIngredients.push(this.drinks.allDrinkInfo[i].strIngredient1);
@@ -113,26 +118,33 @@ export default {
         }
 
         if (
-          this.drinks.drinkIngredients.indexOf(
-            this.drinks.allDrinkInfo[i].strIngredient2
-          ) === -1
-        ) {
-          this.drinks.drinkIngredients.push(
-            this.drinks.allDrinkInfo[i].strIngredient2
-          );
+          this.drinks.drinkIngredients.indexOf(this.drinks.allDrinkInfo[i].strIngredient2) === -1) {
+            this.drinks.drinkIngredients.push(this.drinks.allDrinkInfo[i].strIngredient2);
         }
       }
 
       this.drinks.drinkIngredients.sort();
+      if (sessionStorage.ingredients !== undefined) { //om local storage inte är tom
+       //this.drinks.ingredients = sessionStorage.ingredients; //gör innehåll i local storage till objekt och spara i book
+
+      
+        var retrievedData = sessionStorage.getItem("ingredients");
+        this.drinks.ingredients = JSON.parse(retrievedData);
+        this.getDrinks();
+
+}
     },
 
     getDrinks: function() {
       this.drinks.drinkFromIngredients = []; 
 
+
       //selected ingredient är string som läggs in i array ingredients
       if (this.drinks.selectedIngredient && this.drinks.ingredients.indexOf(this.drinks.selectedIngredient) === -1) {
         this.drinks.ingredients.push(this.drinks.selectedIngredient);
       }
+
+      sessionStorage.setItem("ingredients", JSON.stringify(this.drinks.ingredients));
 
       var promises = []; //array med alla anrop
 
@@ -196,12 +208,16 @@ export default {
 
             // if no drinks were found stop user from selcting more ingredients!
             if (this.drinks.drinkFromIngredients.length === 0) {
+              console.log("assååå")
               this.no_more_drinks = true;
+              this.drinks.message = "There are no drinks with these ingredients";
+              sessionStorage.setItem("message", this.drinks.message);
+            } else {
+              this.drinks.message = "";
             }
           }
         }.bind(this) //så att this fortf är vue componenten (annars function)
-      );
-
+      ); 
     },
 
     removeIngredient: function(ing){
@@ -210,12 +226,12 @@ export default {
       var valueToRemove = this.drinks.removeThisIngredient;
       console.log("haha", ing);
 
-
       this.drinks.ingredients = this.drinks.ingredients.filter(function(item){
         return item !== ing;
       });
       this.drinks.selectedIngredient = '';
       this.no_more_drinks = false;
+      sessionStorage.removeItem("valueToRemove");
       this.getDrinks();
     }
   }
