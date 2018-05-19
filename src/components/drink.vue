@@ -57,14 +57,12 @@ export default {
       this.$router.go(-1);
     },
     favoriteDrink: function() { //local storage
-      console.log(this.$favorites); //varför är den tom här??
       if (this.liked == false) {
 
         this.$favorites.unshift(this.drinks[0]);
 
         this.liked = true;
         this.notLiked = false;
-        console.log("Nu gillas den");
       } else if (this.liked == true) {
         for (var i = 0; i < this.$favorites.length; i++) {
           if (this.$favorites[i].idDrink == this.drinks[0].idDrink) { //om drinken finns i this.$favorites
@@ -76,7 +74,6 @@ export default {
         this.notLiked = true;
       }
 
-      console.log(this.$favorites);
       localStorage.favoriteDrinks = JSON.stringify(this.$favorites); //skriver över localStorage med den nya favoritlistan.
 
       },
@@ -104,7 +101,6 @@ export default {
 
         this.likedOrNot();
     });
-    console.log(this.$favorites);
   }
 }
 </script>
