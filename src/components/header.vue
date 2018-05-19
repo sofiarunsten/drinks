@@ -37,7 +37,6 @@ $background: #f9f7f7;
 $pink: #ff91b9;
 $blue: #97ecef;
 $green: #a0ef92;
-$orange: #f2b765;
 $dark-blue: #3fb8ba;
 
 

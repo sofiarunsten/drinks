@@ -13,7 +13,6 @@
               <h3> {{ drink.strDrink }} </h3>
             </div>
 
-            <!-- Länken till drinksidan måste läggas in på alla komponenter som ska ha den -->
             <div class="drink-img">
               <img v-bind:src="drink.strDrinkThumb">
             </div>
@@ -47,7 +46,7 @@ export default {
 
 <style lang="scss">
   $orange: #f2b765;
-  $background: #f9f7f7;
+  $background: #fafafa;
   $pink: #ff91b9;
   $blue: #97ecef;
   $green: #a0ef92;

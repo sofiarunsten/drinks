@@ -2,7 +2,7 @@
     <div id="sbi">
         <form>
             <div id="selectSpirites">
-                <h2>Select ingredients</h2>
+                <h3>Select ingredients</h3>
                 <select class="ingredient" @change="getDrinks" v-model="drinks.selectedIngredient" :disabled="no_more_drinks">
                   <option v-for="ingredient in drinks.drinkIngredients" :value="ingredient">{{ingredient}}</option>
                     <!--för varje ingrideiens som är selected, skapas option och getDrinks function körs>-->
@@ -10,9 +10,14 @@
             </div>
         </form>
 
-        <h2 id="ingredientHeading">Your Ingredients</h2>
-        <div class="ingredient-list" v-for="ingredient in drinks.ingredients">{{ingredient}}
-          <img id="x" src="src/img/x.png" v-model="drinks.removeThisIngredient" @click="removeIngredient(ingredient)">
+
+        <div id="yourIngredients">
+
+          <h3 id="ingredientHeading">Your Ingredients</h3>
+          <div class="ingredient-list" v-for="ingredient in drinks.ingredients">
+            <p>{{ingredient}}</p>
+            <img id="x" src="src/img/vittx.png" v-model="drinks.removeThisIngredient" @click="removeIngredient(ingredient)">
+          </div>
         </div>
 
         <div class="one-drink" v-for="drink in drinks.drinkFromIngredients"> <!-- h3, bild för varje drink som finns -->
@@ -82,7 +87,7 @@ export default {
     //kör getIngredients function
     loopDrinkId: function() {
       for (var j = 0; j < this.drinks.drinkId.length; j++) {
-        console.log("hgdgdgfdugdjgdjg");
+
         this.$http
           .get(
             "https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=" +
@@ -196,6 +201,7 @@ export default {
           }
         }.bind(this) //så att this fortf är vue componenten (annars function)
       );
+      
     },
 
     removeIngredient: function(ing){
@@ -230,7 +236,7 @@ window.onload = init;*/
 
 <style lang="scss">
   $orange: #f2b765;
-  $background: #f9f7f7;
+  $background: #fafafa;
   $pink: #ff91b9;
   $blue: #97ecef;
   $green: #a0ef92;
@@ -239,6 +245,73 @@ window.onload = init;*/
 
   #sbi {
     box-sizing: border-box;
+    padding: 10px;
+
+    #selectSpirites {
+      font-family: 'Montserrat';
+      text-align: center;
+
+      h3 {
+        font-weight:400;
+        text-transform: uppercase;
+        font-size: 14px;
+        padding: 5px;
+        color: $dark-blue;
+        display: inline-block;
+        width: 200px;
+        margin-bottom: 5px;
+      }
+
+      select {
+        background-color: transparent;
+        padding: 10px;
+        border: 2px solid $blue;
+        color: $dark-blue;
+      }
+
+      select:focus {
+        border: 2px solid $dark-blue;
+        outline: none;
+      }
+    }
+
+    #yourIngredients {
+      font-family: 'Montserrat';
+      margin-top: 20px;
+      text-align: center;
+
+      h3 {
+        font-weight: 400;
+        text-transform: uppercase;
+        font-size: 13px;
+        color: $dark-blue;
+        margin-bottom: 5px;
+      }
+
+      .ingredient-list {
+        background-color: $pink;
+        padding: 5px;
+        border-radius: 15px;
+        display: inline-block;
+        margin: 3px;
+
+        p {
+          font-size: 12px;
+          color: white;
+          display: inline-block;
+          margin: 3px;
+          cursor: default;
+        }
+
+        #x {
+          width: 12px;
+          padding: 2px;
+          cursor: pointer;
+        }
+      }
+
+
+    }
 
   .input-div {
     margin: 10px;
@@ -334,24 +407,9 @@ window.onload = init;*/
   }
 
 
-  .ingredient-list{
-    background-color: $dark-blue;
-    padding: 5px;
-    margin: 10px;
-    overflow: hidden;
-    width: 170px;
-  }
 
-  #ingredientHeading{
-    margin-bottom: 15px;
-  }
 
-  #x {
-    width: 20px;
-    height: 20px;
-    float: right;
-    
-  }
+
 
 
 } //end #sbi
