@@ -81,6 +81,7 @@ $dark-blue: #3fb8ba;
 #random-drink {
   padding: 10px;
   font-family: 'Montserrat';
+  font-weight: 400;
   color: white;
   box-sizing: border-box;
 

@@ -52,7 +52,9 @@ $green: #a0ef92;
 $dark-blue: #3fb8ba;
 
 #favorites {
-
+  font-family: 'Montserrat';
+  font-weight: 400;
+  
   #buttoncontainer {
     text-align: center;
     button {

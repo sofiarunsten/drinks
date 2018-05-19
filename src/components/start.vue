@@ -66,6 +66,8 @@ $green: #a0ef92;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: 'Montserrat';
+  font-weight: 400;
 
   img {
     height: 50px;
