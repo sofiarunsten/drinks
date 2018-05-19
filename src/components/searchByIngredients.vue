@@ -60,6 +60,13 @@ export default {
       }
     };
   },
+  created() {
+    if (sessionStorage.savedIngredients !== undefined) {
+      this.drinks.ingredients = JSON.parse(sessionStorage.savedIngredients);
+
+      this.getDrinks();
+    }
+  },
 
   //när componenten är mounted(har tillgång till DOM), kör getAlcoholicDrinks function
   mounted: function() {
@@ -158,6 +165,9 @@ export default {
         );
       }
 
+        // ********************** TEST
+        sessionStorage.savedIngredients = JSON.stringify(this.drinks.ingredients);
+
       Promise.all(promises).then(
         //kör alla anrop och kör then när alla anrop är färdiga
         function(responses) {
@@ -219,6 +229,9 @@ export default {
       this.drinks.ingredients = this.drinks.ingredients.filter(function(item){
         return item !== ing;
       });
+
+      sessionStorage.savedIngredients = JSON.stringify(this.drinks.ingredients);
+
       this.drinks.selectedIngredient = '';
       this.no_more_drinks = false;
       this.getDrinks();

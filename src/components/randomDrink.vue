@@ -4,7 +4,7 @@
       <button @click="randomDrink">Get another recipe</button>
     </div>
 
-    <div class="one-drink" v-for="drink in drinks.randomDrink"> <!-- h3, bild för varje drink som finns -->
+    <div class="one-drink" v-for="drink in drinks"> <!-- h3, bild för varje drink som finns -->
       <div class="top">
         <h3> {{ drink.strDrink }} </h3>
         <div @click="favoriteDrink()" v-bind:class="{ 'liked': liked, 'not-liked': notLiked }" title="Click to Like or Unlike Drink">
@@ -49,9 +49,9 @@ export default {
   data() {
     return {
       search: "",
-      drinks: {
-        randomDrink: []
-      }
+      drinks: [],
+      'liked': false, //för klasserna
+      'notLiked': true //för klasserna
     };
   },
   methods: {
@@ -59,12 +59,46 @@ export default {
       this.$http
         .get("https://www.thecocktaildb.com/api/json/v1/1/random.php")
         .then(function(data) {
-          this.drinks.randomDrink = data.body.drinks;
+          this.drinks = data.body.drinks;
+          this.likedOrNot();
         });
+    },
+    favoriteDrink: function() {
+      if (this.liked == false) {
+
+        this.$favorites.unshift(this.drinks[0]);
+
+        this.liked = true;
+        this.notLiked = false;
+      } else if (this.liked == true) {
+        for (var i = 0; i < this.$favorites.length; i++) {
+          if (this.$favorites[i].idDrink == this.drinks[0].idDrink) { //om drinken finns i this.$favorites
+            this.$favorites.splice(i, 1);
+          }
+        }
+
+        this.liked = false;
+        this.notLiked = true;
+      }
+
+      localStorage.favoriteDrinks = JSON.stringify(this.$favorites); //skriver över localStorage med den nya favoritlistan.
+    },
+    likedOrNot: function() {
+      this.liked = false;
+      this.notLiked = true;
+
+      for (var i = 0; i < this.$favorites.length; i++) {
+        if (this.$favorites[i].idDrink == this.drinks.idDrink) {
+          this.liked = true;
+          this.notLiked = false;
+        }
+      }
+
     }
   },
   created() {
     this.randomDrink();
+    this.likedOrNot();
   }
 };
 </script>
