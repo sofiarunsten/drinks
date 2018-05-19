@@ -36,9 +36,20 @@ export default {
   },
   methods: {
   },
+  created() {
+    if (sessionStorage.nameSearch !== undefined) {
+      this.search = sessionStorage.nameSearch;
+
+      this.$http.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + this.search).then(function(data) {
+        this.drinks = data.body.drinks; //data.body är hela arrayen med alla drinkar
+      })
+    }
+  },
   updated() { //before update för att den alltid ska söka på nytt när man skriver något i sökrutan
     this.$http.get('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=' + this.search).then(function(data) {
       this.drinks = data.body.drinks; //data.body är hela arrayen med alla drinkar
+
+      sessionStorage.nameSearch = this.search;
     })
   }
 }
