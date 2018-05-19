@@ -55,6 +55,8 @@ export default {
 
   #sbn {
     box-sizing: border-box;
+    font-family: 'Montserrat';
+    font-weight: 400;
 
   .input-div {
     margin: 10px;

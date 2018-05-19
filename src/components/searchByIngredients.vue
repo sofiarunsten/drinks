@@ -201,7 +201,7 @@ export default {
           }
         }.bind(this) //så att this fortf är vue componenten (annars function)
       );
-      
+
     },
 
     removeIngredient: function(ing){
@@ -246,13 +246,13 @@ window.onload = init;*/
   #sbi {
     box-sizing: border-box;
     padding: 10px;
+    font-family: 'Montserrat';
+    font-weight: 400;
 
     #selectSpirites {
-      font-family: 'Montserrat';
       text-align: center;
 
       h3 {
-        font-weight:400;
         text-transform: uppercase;
         font-size: 14px;
         padding: 5px;

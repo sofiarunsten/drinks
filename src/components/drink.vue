@@ -117,6 +117,7 @@ $dark-blue: #3fb8ba;
 #drink {
   padding: 10px;
   font-family: 'Montserrat';
+  font-weight: 400;
   color: white;
 
   #buttoncontainer {
