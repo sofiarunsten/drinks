@@ -99,6 +99,10 @@ export default {
   created() {
     this.randomDrink();
     this.likedOrNot();
+
+    if (localStorage.favoriteDrinks !== undefined) {
+      this.$favorites = JSON.parse(localStorage.favoriteDrinks);
+    }
   }
 };
 </script>
